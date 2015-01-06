@@ -1,0 +1,32 @@
+{
+    "Variables": {
+        "{basePath}": "D:/mplus",
+        "{dataPath}": "E:/home/LD"
+    },
+    "Env": {
+        "GOPATH": "{mplusData}/mon/trunk/server",
+        "GOROOT": "{basePath}/go_x86",
+        "GOTOOLDIR": "{basePath}/go_x86/pkg/tool/windows_386"
+    },
+    "Path": [
+        "{SystemRoot}",
+        "{SystemRoot}/system32",
+        "{basePath}/git_x86/bin",
+        "{basePath}/go_x86/bin",
+        "{basePath}/go_x86/pkg/tool/windows_386",
+        "{basePath}/mercurial_x86",
+        "{basePath}/subversion_x86/bin",
+        "{mplusData}/mon/trunk/server/bin"
+    ],
+    "Programs": {
+        "ll": "ls.exe -l",
+        "liteide": "'D:/Program Files (x86)/liteide/bin/liteide.exe'",
+        "server": "cd {mplusData}/mon/trunk/server/src"
+    },
+    "Services": {
+        "godoc": ["godoc.exe -http=:6060"]
+    },
+    "AutoRuns": [
+        "godoc"
+    ]
+}
