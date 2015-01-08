@@ -7,7 +7,7 @@ package console
 import (
 	"bufio"
 	"fmt"
-	"github.com/liudng/fav/config"
+	"github.com/zhgo/config"
 	"log"
 	"os"
 	"os/exec"
