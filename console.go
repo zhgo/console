@@ -16,18 +16,18 @@ import (
 	"strings"
 )
 
-//typ: 0:service, 1:command
+// typ: 0:service, 1:command
 const (
 	ProgramSRV = iota
 	ProgramCMD
 )
 
-//
+// Console struct
 type Console struct {
-	//
+	// Environments of operation system.
 	Env map[string]string
 
-	//
+	// Path of operation system.
 	Path []string
 
 	//
