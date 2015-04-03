@@ -177,21 +177,6 @@ func (c *Console) ExecuteCMD(path string, args ...string) *exec.Cmd {
 	return cmd
 }
 
-func (c *Console) ExecuteSRV(path string, args ...string) *exec.Cmd {
-	cmd := exec.Command(path, args...)
-
-	fmt.Printf("[%s] %v\n", path, args)
-
-	err := cmd.Start()
-	if err != nil {
-		fmt.Printf("%s\n", err)
-	} else {
-		fmt.Println(cmd.Process.Pid)
-	}
-
-	return cmd
-}
-
 func (c *Console) Service(typ string, name string) {
 	if name == "all" {
 		for k, _ := range c.Services {
@@ -233,6 +218,21 @@ func (c *Console) ServiceItem(typ string, name string) {
 			}
 		}
 	}
+}
+
+func (c *Console) ExecuteSRV(path string, args ...string) *exec.Cmd {
+	cmd := exec.Command(path, args...)
+
+	fmt.Printf("[%s] %v\n", path, args)
+
+	err := cmd.Start()
+	if err != nil {
+		fmt.Printf("%s\n", err)
+	} else {
+		fmt.Println(cmd.Process.Pid)
+	}
+
+	return cmd
 }
 
 func Setenv(key, value string) {
