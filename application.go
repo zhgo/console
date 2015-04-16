@@ -42,7 +42,7 @@ type Module struct {
     Name string
 
     // key of DSN
-    DB db.DB
+    DB db.Server
 }
 
 // App
