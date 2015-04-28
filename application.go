@@ -73,7 +73,7 @@ func (app *Application) Init(path string) {
 }
 
 // Load
-func (app *Application) Load(p, args string) {
+func (app *Application) Load(p string) {
 
 }
 

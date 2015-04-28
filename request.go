@@ -27,7 +27,7 @@ type Request struct {
 }
 
 //New request
-func newRequest(p string) *Request {
+func NewRequest(p string) *Request {
     nodes := strings.Split(p, "/")
     l := len(nodes)
 
