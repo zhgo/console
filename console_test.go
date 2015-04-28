@@ -21,7 +21,7 @@ func TestParseText(t *testing.T) {
 		t.Fatalf("ParseText failure: \n%#v\n%#v\n", cmd, args)
 	}
 
-	cmd = "\"D:/Program Files (x86)/liteide/bin/liteide.exe\" -cli"
+	cmd = "'D:/Program Files (x86)/liteide/bin/liteide.exe' -cli"
 	args = ParseText(cmd)
 	if len(args) != 2 {
 		t.Fatalf("ParseText failure: \n%#v\n%#v\n", cmd, args)
