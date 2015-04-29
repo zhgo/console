@@ -7,13 +7,13 @@ package console
 import (
 	"bufio"
 	"fmt"
-	"github.com/zhgo/config"
 	"log"
 	"os"
 	"os/exec"
 	"path/filepath"
 	"runtime"
 	"strings"
+    "github.com/zhgo/kernel"
 )
 
 // typ: 0:service, 1:command
@@ -46,20 +46,12 @@ type Console struct {
 }
 
 func (c *Console) Init(path string) {
-	type variables struct {
-		Variables map[string]string
-	}
-	var r variables
-	err := config.LoadJSONFile(&r, path, nil)
-	if err != nil {
-		log.Printf("%s\n", err)
-	}
-
 	//r.Variables["{basePath}"] = WorkingDir
 	//r.Variables["{SystemRoot}"] = console.Getenv("SystemRoot")
 	//r.Variables["{UserProfile}"] = console.Getenv("USERPROFILE")
 
-	err = config.LoadJSONFile(c, path, r.Variables)
+    cfg := kernel.NewConfig(kernel.ConfigFile, path, nil)
+    err := cfg.Parse(c)
 	if err != nil {
 		log.Printf("%s\n", err)
 	}

@@ -7,7 +7,6 @@ package console
 import (
     "github.com/zhgo/db"
     "github.com/zhgo/kernel"
-    "github.com/zhgo/config"
     "os"
     "fmt"
 )
@@ -51,8 +50,9 @@ var App Application
 // Init
 func (app *Application) Init(path string) {
     // Load config file
-    r := map[string]string{"{WorkingDir}": kernel.WorkingDir}
-    config.LoadJSONFileAdv(app, path, r)
+    rep := map[string]string{"{WorkingDir}": kernel.WorkingDir}
+    cfg := kernel.NewConfig(kernel.ConfigFile, path, rep)
+    cfg.Parse(app)
 
     // Default module
     if app.Modules == nil {
