@@ -9,10 +9,15 @@ import (
     "os"
     "runtime"
     "strings"
+    "flag"
+    "fmt"
 )
 
 // Working Directory
 var WorkingDir string = workingDir()
+
+// Console Application
+var App Application
 
 //Get working directory.
 func workingDir() string {
@@ -87,3 +92,24 @@ func ParseText(txt string) []string {
     return args
 }
 
+// Console parameters
+func Arguments(app string) (string, string) {
+    var c, h, p string
+    flag.StringVar(&c, "c", WorkingDir+"/example.json", "Usage: mplus -c=/path/to/example.json")
+    flag.StringVar(&h, "h", "nil", "Usage: example -h")
+    flag.StringVar(&p, "p", "", "Usage: example -p=Passport/User/Login&id=1")
+    flag.Parse()
+
+    if h != "nil" {
+        fmt.Println(
+        fmt.Sprintf("Usage: %s [OPTION]...", app),
+        "{example} is the name of the application, you can change in a real environment.",
+        "",
+        "  -c  The path of the configuration file.",
+        "  -h  Display this help and exit.",
+        "  -p  Console application action path. Separated by a slash.")
+        os.Exit(0)
+    }
+
+    return c, p
+}
