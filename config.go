@@ -11,18 +11,12 @@ import (
     "errors"
 )
 
-// Configuration content type
-const (
-    ConfigFile = iota
-    ConfigString
-)
-
 type Config struct {
     // Original configuration string
     str string
 
     // The replacement value
-    rep map[string]string
+    re map[string]string
 }
 
 // Load configuration file
@@ -63,7 +57,7 @@ func (c *Config) Parse(j interface{}) error {
 
     // Merge
     for k, v := range r1.Variables {
-        c.rep[k] = v
+        c.re[k] = v
     }
 
     err = c.parse(j)
@@ -76,9 +70,9 @@ func (c *Config) Parse(j interface{}) error {
 
 func (c *Config) Replace(r map[string]string) *Config {
     if r == nil {
-        c.rep = make(map[string]string)
+        c.re = make(map[string]string)
     } else {
-        c.rep = r
+        c.re = r
     }
 
     return c
@@ -104,11 +98,11 @@ func (c *Config) parse(j interface{}) error {
 
 //Replace placeholer({})
 func (c *Config) replace() {
-    if len(c.rep) == 0 {
+    if len(c.re) == 0 {
         return
     }
 
-    for k, v := range c.rep {
+    for k, v := range c.re {
         //c.str = regexp.MustCompile(k).ReplaceAllLiteralString(c.str, v)
         c.str = strings.Replace(c.str, k, v, -1)
     }
@@ -116,8 +110,7 @@ func (c *Config) replace() {
 
 // New Config
 func NewConfig(p string) *Config {
-    var c Config
+    c := Config{re: make(map[string]string)}
     c.Load(p)
-
     return &c
 }
