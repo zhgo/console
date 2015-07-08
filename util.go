@@ -14,13 +14,13 @@ import (
 )
 
 // Working Directory
-var WorkingDir string = workingDir()
+var WorkingDir string = Getwd()
 
 // Console Application
 var App Application
 
-//Get working directory.
-func workingDir() string {
+//Wrap os.Getwd()
+func Getwd() string {
     w, err := os.Getwd()
     if err != nil {
         log.Fatal(err)
@@ -34,20 +34,6 @@ func workingDir() string {
     return w
 }
 
-func Setenv(key, value string) {
-    err := os.Setenv(key, value)
-    if err != nil {
-        log.Printf("%s\n", err)
-    }
-}
-
-func Chdir(path string) {
-    err := os.Chdir(path)
-    if err != nil {
-        log.Printf("%s\n", err)
-    }
-}
-
 func Getenv(key string) string {
     value := os.Getenv(key)
     if runtime.GOOS == "windows" {
@@ -55,6 +41,26 @@ func Getenv(key string) string {
     }
 
     return value
+}
+
+func Setenv(key, value string) error {
+    err := os.Setenv(key, value)
+    if err != nil {
+        log.Printf("%s\n", err)
+        return err
+    }
+
+    return nil
+}
+
+func Chdir(path string) error {
+    err := os.Chdir(path)
+    if err != nil {
+        log.Printf("%s\n", err)
+        return err
+    }
+
+    return nil
 }
 
 func ParseText(txt string) []string {

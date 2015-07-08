@@ -41,9 +41,8 @@ type Application struct {
 // Init
 func (app *Application) Init(path string) {
     // Load config file
-    rep := map[string]string{"{WorkingDir}": WorkingDir}
-    cfg := NewConfig(ConfigFile, path, rep)
-    cfg.Parse(app)
+    r := map[string]string{"{WorkingDir}": WorkingDir}
+    NewConfig(path).Replace(r).Parse(app)
 
     //Env
     for k, v := range app.Env {

@@ -25,19 +25,9 @@ type Config struct {
     rep map[string]string
 }
 
-// Read from string
-func (c *Config) Read(str string) error {
-    if str == "" {
-        return errors.New("Configuration body is empty")
-    }
-
-    c.str = str
-    return nil
-}
-
 // Load configuration file
-func (c *Config) Load(path string) error {
-    b, err := ioutil.ReadFile(path)
+func (c *Config) Load(p string) error {
+    b, err := ioutil.ReadFile(p)
     if err != nil {
         return err
     }
@@ -45,21 +35,13 @@ func (c *Config) Load(path string) error {
     return nil
 }
 
-// Configuration parsing
-func (c *Config) parse(j interface{}) error {
-    if c.str == "" {
+// Read from string
+func (c *Config) Read(str string) error {
+    if str == "" {
         return errors.New("Configuration body is empty")
     }
 
-    c.str = c.replace(c.str, c.rep)
-
-    //decode string(JSON format)
-    dec := json.NewDecoder(strings.NewReader(c.str))
-    err := dec.Decode(j)
-    if err != nil {
-        return err
-    }
-
+    c.str = str
     return nil
 }
 
@@ -92,32 +74,50 @@ func (c *Config) Parse(j interface{}) error {
     return nil
 }
 
-//Replace by map
-func (c *Config) replace(t string, replaces map[string]string) string {
-    if len(replaces) == 0 {
-        return t
+func (c *Config) Replace(r map[string]string) *Config {
+    if r == nil {
+        c.rep = make(map[string]string)
+    } else {
+        c.rep = r
     }
 
-    for k, v := range replaces {
-        //t = regexp.MustCompile(k).ReplaceAllLiteralString(t, v)
-        t = strings.Replace(t, k, v, -1)
+    return c
+}
+
+// Configuration parsing
+func (c *Config) parse(j interface{}) error {
+    if c.str == "" {
+        return errors.New("Configuration body is empty")
     }
 
-    return t
+    c.replace()
+
+    //decode string(JSON format)
+    dec := json.NewDecoder(strings.NewReader(c.str))
+    err := dec.Decode(j)
+    if err != nil {
+        return err
+    }
+
+    return nil
+}
+
+//Replace placeholer({})
+func (c *Config) replace() {
+    if len(c.rep) == 0 {
+        return
+    }
+
+    for k, v := range c.rep {
+        //c.str = regexp.MustCompile(k).ReplaceAllLiteralString(c.str, v)
+        c.str = strings.Replace(c.str, k, v, -1)
+    }
 }
 
 // New Config
-func NewConfig(typ uint8, str string, rep map[string]string) *Config {
+func NewConfig(p string) *Config {
     var c Config
-    if typ == ConfigFile {
-        c.Load(str)
-    } else {
-        c.Read(str)
-    }
-    if rep == nil {
-        c.rep = make(map[string]string)
-    } else {
-        c.rep = rep
-    }
+    c.Load(p)
+
     return &c
 }
