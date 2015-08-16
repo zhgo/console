@@ -1,6 +1,6 @@
-# Console --- Core module of Zhgo
+# Core module
 
-Core module of Zhgo. contains set working directory, load configurations, dump variables infomation.
+Core module of zhgo. contains set working directory, load configurations, dump variables infomation.
 
 [![Build Status](https://travis-ci.org/zhgo/console.svg)](https://travis-ci.org/zhgo/console)
 [![Coverage](http://gocover.io/_badge/github.com/zhgo/console)](http://gocover.io/github.com/zhgo/console)
