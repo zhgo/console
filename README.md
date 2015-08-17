@@ -1,4 +1,4 @@
-# Core module
+# Console
 
 Core module of zhgo. contains set working directory, load configurations, dump variables infomation.
 
