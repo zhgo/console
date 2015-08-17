@@ -42,7 +42,7 @@ type Application struct {
 // Init
 func (app *Application) Init(path string) {
 	// Load config file
-	r := map[string]string{"{WorkingDir}": workingDir}
+	r := map[string]string{"{WorkingDir}": WorkingDir}
 	config.NewConfig(path).Replace(r).Parse(app)
 
 	//Env

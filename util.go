@@ -95,7 +95,7 @@ func ParseText(txt string) []string {
 // Console parameters
 func Arguments(app string) (string, string) {
 	var c, h, p string
-	flag.StringVar(&c, "c", workingDir+"/example.json", "Usage: mplus -c=/path/to/example.json")
+	flag.StringVar(&c, "c", WorkingDir+"/example.json", "Usage: mplus -c=/path/to/example.json")
 	flag.StringVar(&h, "h", "nil", "Usage: example -h")
 	flag.StringVar(&p, "p", "", "Usage: example -p=Passport/User/Login&id=1")
 	flag.Parse()

@@ -5,4 +5,4 @@
 package console
 
 // Working Directory
-var workingDir string = Getwd()
+var WorkingDir string = Getwd()
